@@ -1,12 +1,17 @@
 package server
 
-type server struct{
-	url string
-	port int
+import (
+	"fmt"
+	"net/http"
+)
+
+type Server struct {
+	code int
 }
 
-func NewServer(urlNew string, portNew int) *server {
-	return  &server{urlNew, portNew}
+func (serv * Server) Start(){
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintf(w, "Hello World!")
+	})
+	http.ListenAndServe(":80", nil)
 }
-
-
